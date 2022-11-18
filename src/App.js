@@ -18,6 +18,7 @@ const DefaultLayoutComp = React.lazy(() => import('./layout/DefaultLayoutComp'))
 const Login = React.lazy(() => import('./views/pages/login/login'))
 const Dashboard = React.lazy(() => import('./views/mainComponents/dashboard'))
 const SignUp = React.lazy(() => import('./views/pages/signup/signup'))
+const Cyclone_input = React.lazy(() => import('./views/mainComponents/cyclone'))
 function App() {
   // different users
   const [mobileUsers, setMobileUsers] = useState([])
@@ -91,9 +92,10 @@ function App() {
       <HashRouter>
         <React.Suspense fallback={loading}>
           <Routes>
-            <Route exact path="/" element={<Login user={mail} />} />
+            <Route exact path="/" element={<Dashboard user={mail} />} />
             <Route exact path="/SignUp" element={<SignUp user={mail} />} />
             <Route exact path="/Dashboard" element={<Dashboard user={mail} />} />
+            <Route exact path="/input_cyclone" element={<Cyclone_input user={mail} />} />
             {/* <Route exact path="/" element={<Dashboard user={mail} />}></Route> */}
             <Route
               path="company/*"

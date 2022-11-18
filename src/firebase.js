@@ -24,13 +24,13 @@ import 'firebase/compat/auth'
 // })
 
 const firebaseApp = firebase.initializeApp({
-  apiKey: "AIzaSyCLqz6dI6Aep749RZSCeRzFrMDG8wbjHFo",
-  authDomain: "event-segmentation-manda.firebaseapp.com",
-  projectId: "event-segmentation-manda",
-  storageBucket: "event-segmentation-manda.appspot.com",
-  messagingSenderId: "591383835724",
-  appId: "1:591383835724:web:0669b62b84382eaf1970e9",
-  measurementId: "G-6RGZ2198W5"
+  apiKey: "AIzaSyAaj_Cqd3aWe0m7dXCNlDuC4MJ3m46DK5Q",
+  authDomain: "est-project-3d555.firebaseapp.com",
+  projectId: "est-project-3d555",
+  storageBucket: "est-project-3d555.appspot.com",
+  messagingSenderId: "666962720828",
+  appId: "1:666962720828:web:1803a70e398284acb02b39",
+  measurementId: "G-PCJTGKZL09"
 })
 const auth = firebase.auth()
 // export default firebase;

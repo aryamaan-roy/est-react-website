@@ -16,7 +16,7 @@ import { Navigate } from 'react-router-dom';
 import db from '../../firebase1'
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 import { getAuth, signOut } from "firebase/auth";
-const pages = [''];
+const pages = ['input_cyclone'];
 const settings = ['Logout'];
 
 const ResponsiveAppBar = () => {
@@ -120,7 +120,7 @@ const ResponsiveAppBar = () => {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={() => navigate('/' + page)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page}
