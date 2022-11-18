@@ -44,6 +44,7 @@ const ResponsiveAppBar = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <Button variant = "outlined" onClick={() => navigate('/')} >
           <Typography
             variant="h6"
             noWrap
@@ -54,12 +55,13 @@ const ResponsiveAppBar = () => {
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'inherit',
+              color: 'white',
               textDecoration: 'none',
             }}
           >
-            Event Segmentation - MANDA LAB
+            Cyclone Analysis
           </Typography>
+          </Button>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -114,7 +116,7 @@ const ResponsiveAppBar = () => {
               textDecoration: 'none',
             }}
           >
-            Event Segmentation - MANDA LAB
+            Cyclone Analysis
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (

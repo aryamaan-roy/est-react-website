@@ -43,7 +43,7 @@ export default function Analytics() {
             exportEnabled: true,
             theme: "light2",
             title: {
-                text: "Cyclone v/s Peak Speed"
+                text: "All Cyclone v/s Peak Speed"
             },
             axisY: {
                 title: "Peak Speed",
@@ -69,7 +69,14 @@ export default function Analytics() {
             querySnapshot.forEach((doc) => {
                 // doc.data() is never undefined for query doc snapshots
                 console.log(doc.id, " => ", doc.data());
-                line_data.data[0].dataPoints.push({ label: doc.data()["Name"], y: doc.data()["Peak Speed"] });
+                line_data.data[0].dataPoints.push({ label: doc.data()["name"], y: doc.data()["peak_speed"] });
+            });
+        });
+        db.collection("WORLD").get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                // doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data());
+                line_data.data[0].dataPoints.push({ label: doc.data()["name"], y: doc.data()["peak_speed"] });
             });
         });
         console.log(line_data.data[0].dataPoints);
