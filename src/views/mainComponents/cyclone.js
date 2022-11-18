@@ -21,7 +21,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-
+import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 
 function Copyright(props) {
   return (
@@ -107,7 +107,7 @@ export default function Cyclone_input() {
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
+              <AddCircleOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
               Cyclone Data
@@ -217,6 +217,7 @@ export default function Cyclone_input() {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
+                fullWidth
                 value={type}
                 label="type"
                 onChange={handleChangeType}
