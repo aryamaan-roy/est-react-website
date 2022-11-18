@@ -37,7 +37,7 @@ import db from '../../firebase1'
 
 export default function Analytics() {
 
-    const [line_data, setLinedata] = useState(
+    const [cyclone_vs_peak_speed, setLine1data] = useState(
         {
             animationEnabled: true,
             exportEnabled: true,
@@ -63,23 +63,78 @@ export default function Analytics() {
         }
     )
 
+    const [cyclone_vs_death, setLine3data] = useState(
+        {
+            animationEnabled: true,
+            exportEnabled: true,
+            theme: "light2",
+            title: {
+                text: "All Cyclone v/s Human Death"
+            },
+            axisY: {
+                title: "Human Deaths",
+            },
+            axisX: {
+                title: "Cyclone",
+            },
+            data: [
+                {
+                    // Change type to "doughnut", "line", "splineArea", etc.
+                    type: "column",
+                    dataPoints: [
+                    ]
+                }
+            ]
+        }
+    )
+
+    const [cyclone_vs_loss, setLine2data] = useState(
+        {
+            animationEnabled: true,
+            exportEnabled: true,
+            theme: "light2",
+            title: {
+                text: "All Cyclone v/s Monetory Loss ($M)"
+            },
+            axisY: {
+                title: "Monetory Loss ($M)",
+            },
+            axisX: {
+                title: "Cyclone",
+            },
+            data: [
+                {
+                    // Change type to "doughnut", "line", "splineArea", etc.
+                    type: "column",
+                    dataPoints: [
+                    ]
+                }
+            ]
+        }
+    )
+
     useEffect(() => {
 
         db.collection("INDIA").get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 // doc.data() is never undefined for query doc snapshots
                 console.log(doc.id, " => ", doc.data());
-                line_data.data[0].dataPoints.push({ label: doc.data()["name"], y: doc.data()["peak_speed"] });
+                cyclone_vs_peak_speed.data[0].dataPoints.push({ label: doc.data()["name"], y: doc.data()["peak_speed"] });
+                cyclone_vs_loss.data[0].dataPoints.push({ label: doc.data()["name"], y: doc.data()["loss"] });
+                cyclone_vs_death.data[0].dataPoints.push({ label: doc.data()["name"], y: doc.data()["death"] });
             });
         });
         db.collection("WORLD").get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 // doc.data() is never undefined for query doc snapshots
                 console.log(doc.id, " => ", doc.data());
-                line_data.data[0].dataPoints.push({ label: doc.data()["name"], y: doc.data()["peak_speed"] });
+                cyclone_vs_peak_speed.data[0].dataPoints.push({ label: doc.data()["name"], y: doc.data()["peak_speed"] });
+                cyclone_vs_loss.data[0].dataPoints.push({ label: doc.data()["name"], y: doc.data()["loss"] });
+                cyclone_vs_death.data[0].dataPoints.push({ label: doc.data()["name"], y: doc.data()["death"] });
             });
         });
-        console.log(line_data.data[0].dataPoints);
+        console.log(cyclone_vs_peak_speed.data[0].dataPoints);
+        console.log(cyclone_vs_loss.data[0].dataPoints);
     }, []);
     const [show_graph, setShow_graph] = useState(false);
     return (
@@ -89,8 +144,11 @@ export default function Analytics() {
                     setShow_graph(!show_graph);
                     console.log(show_graph);
                 }}>Show Graph</button>
-                {show_graph ? <CanvasJSChart options={line_data} /> : null}
-                <br></br>
+                {show_graph ? <CanvasJSChart options={cyclone_vs_peak_speed} /> : null}
+                <br></br><br></br>
+                {show_graph ? <CanvasJSChart options={cyclone_vs_loss} /> : null}
+                <br></br><br></br>
+                {show_graph ? <CanvasJSChart options={cyclone_vs_death} /> : null}
             </div>
         </>
     );
