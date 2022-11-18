@@ -37,13 +37,38 @@ import db from '../../firebase1'
 
 export default function Analytics() {
 
-    const [cyclone_vs_peak_speed, setLine1data] = useState(
+    const [cyclone_vs_peak_speed_world, setLine1data] = useState(
         {
             animationEnabled: true,
             exportEnabled: true,
             theme: "light2",
             title: {
-                text: "All Cyclone v/s Peak Speed"
+                text: "Cyclone v/s Peak Speed WORLD"
+            },
+            axisY: {
+                title: "Peak Speed",
+                suffix: "kmph"
+            },
+            axisX: {
+                title: "Cyclone",
+            },
+            data: [
+                {
+                    // Change type to "doughnut", "line", "splineArea", etc.
+                    type: "column",
+                    dataPoints: [
+                    ]
+                }
+            ]
+        }
+    )
+    const [cyclone_vs_peak_speed_india, setLine5data] = useState(
+        {
+            animationEnabled: true,
+            exportEnabled: true,
+            theme: "light2",
+            title: {
+                text: "Cyclone v/s Peak Speed INDIA"
             },
             axisY: {
                 title: "Peak Speed",
@@ -113,27 +138,122 @@ export default function Analytics() {
         }
     )
 
+    const [damage_vs_speed, setLine4data] = useState({
+        theme: "light2",
+        animationEnabled: true,
+        zoomEnabled: true,
+        title: {
+            text: "Land Damage (Ha) v/s Peak Speed (kmph)"
+        },
+        axisX: {
+            title: "Peak Speed (kmph)",
+            suffix: "kmph",
+            crosshair: {
+                enabled: true,
+                snapToDataPoint: true
+            }
+        },
+        axisY: {
+            title: "Land Damage (Ha)",
+            crosshair: {
+                enabled: true,
+                snapToDataPoint: true
+            }
+        },
+        data: [{
+            type: "scatter",
+            markerSize: 15,
+            toolTipContent: "Peak Speed: {x}kmph Land Damage: { y }Ha",
+            dataPoints: [
+            ]
+        }]
+    })
+
+    const [gdp_drop_vs_peak_speed_world, setLine6data] = useState({
+        theme: "light2",
+        animationEnabled: true,
+        zoomEnabled: true,
+        title: {
+            text: "GDP Drop (%) v/s Peak Speed (kmph) WORLD"
+        },
+        axisX: {
+            title: "Peak Speed (kmph)",
+            suffix: "kmph",
+            crosshair: {
+                enabled: true,
+                snapToDataPoint: true
+            }
+        },
+        axisY: {
+            title: "GDP Drop (%)",
+            crosshair: {
+                enabled: true,
+                snapToDataPoint: true
+            }
+        },
+        data: [{
+            type: "scatter",
+            markerSize: 15,
+            toolTipContent: "Peak Speed: {x}kmph GDP Drop: { y }%",
+            dataPoints: [
+            ]
+        }]
+    })
+    const [gdp_drop_vs_peak_speed_india, setLine7data] = useState({
+        theme: "light2",
+        animationEnabled: true,
+        zoomEnabled: true,
+        title: {
+            text: "GDP Drop (%) v/s Peak Speed (kmph) INDIA"
+        },
+        axisX: {
+            title: "Peak Speed (kmph)",
+            suffix: "kmph",
+            crosshair: {
+                enabled: true,
+                snapToDataPoint: true
+            }
+        },
+        axisY: {
+            title: "GDP Drop (%)",
+            crosshair: {
+                enabled: true,
+                snapToDataPoint: true
+            }
+        },
+        data: [{
+            type: "scatter",
+            markerSize: 15,
+            toolTipContent: "Peak Speed: {x}kmph GDP Drop: { y }%",
+            dataPoints: [
+            ]
+        }]
+    })
     useEffect(() => {
 
         db.collection("INDIA").get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 // doc.data() is never undefined for query doc snapshots
                 console.log(doc.id, " => ", doc.data());
-                cyclone_vs_peak_speed.data[0].dataPoints.push({ label: doc.data()["name"], y: doc.data()["peak_speed"] });
+                cyclone_vs_peak_speed_india.data[0].dataPoints.push({ label: doc.data()["name"], y: doc.data()["peak_speed"] });
                 cyclone_vs_loss.data[0].dataPoints.push({ label: doc.data()["name"], y: doc.data()["loss"] });
                 cyclone_vs_death.data[0].dataPoints.push({ label: doc.data()["name"], y: doc.data()["death"] });
+                damage_vs_speed.data[0].dataPoints.push({ x: doc.data()["peak_speed"], y: doc.data()["damage"] });
+                gdp_drop_vs_peak_speed_india.data[0].dataPoints.push({ x: doc.data()["peak_speed"], y: doc.data()["gdp_drop"] });
             });
         });
         db.collection("WORLD").get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 // doc.data() is never undefined for query doc snapshots
                 console.log(doc.id, " => ", doc.data());
-                cyclone_vs_peak_speed.data[0].dataPoints.push({ label: doc.data()["name"], y: doc.data()["peak_speed"] });
+                cyclone_vs_peak_speed_world.data[0].dataPoints.push({ label: doc.data()["name"], y: doc.data()["peak_speed"] });
                 cyclone_vs_loss.data[0].dataPoints.push({ label: doc.data()["name"], y: doc.data()["loss"] });
                 cyclone_vs_death.data[0].dataPoints.push({ label: doc.data()["name"], y: doc.data()["death"] });
+                damage_vs_speed.data[0].dataPoints.push({ x: doc.data()["peak_speed"], y: doc.data()["damage"] });
+                gdp_drop_vs_peak_speed_world.data[0].dataPoints.push({ x: doc.data()["peak_speed"], y: doc.data()["gdp_drop"] });
             });
         });
-        console.log(cyclone_vs_peak_speed.data[0].dataPoints);
+        console.log(cyclone_vs_peak_speed_world.data[0].dataPoints);
         console.log(cyclone_vs_loss.data[0].dataPoints);
     }, []);
     const [show_graph, setShow_graph] = useState(false);
@@ -144,11 +264,19 @@ export default function Analytics() {
                     setShow_graph(!show_graph);
                     console.log(show_graph);
                 }}>Show Graph</button>
-                {show_graph ? <CanvasJSChart options={cyclone_vs_peak_speed} /> : null}
+                {show_graph ? <CanvasJSChart options={cyclone_vs_peak_speed_world} /> : null}
+                <br></br><br></br>
+                {show_graph ? <CanvasJSChart options={cyclone_vs_peak_speed_india} /> : null}
                 <br></br><br></br>
                 {show_graph ? <CanvasJSChart options={cyclone_vs_loss} /> : null}
                 <br></br><br></br>
                 {show_graph ? <CanvasJSChart options={cyclone_vs_death} /> : null}
+                <br></br><br></br>
+                {show_graph ? <CanvasJSChart options={damage_vs_speed} /> : null}
+                <br></br><br></br>
+                {show_graph ? <CanvasJSChart options={gdp_drop_vs_peak_speed_world} /> : null}
+                <br></br><br></br>
+                {show_graph ? <CanvasJSChart options={gdp_drop_vs_peak_speed_india} /> : null}
             </div>
         </>
     );
