@@ -110,7 +110,7 @@ export default function Cyclone_input() {
             sm={4}
             md={7}
             sx={{
-              backgroundImage: 'url(https://images.unsplash.com/photo-1454789476662-53eb23ba5907?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=452&q=80)',
+              backgroundImage: 'url(https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80)',
               backgroundRepeat: 'no-repeat',
               backgroundColor: (t) =>
                 t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
