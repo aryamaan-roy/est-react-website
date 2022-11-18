@@ -52,7 +52,7 @@ export default function Cyclone_input() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      type : type,
+      type: type,
       name: data.get('name'),
       location: data.get('location'),
       ocean: data.get('ocean'),
@@ -64,6 +64,25 @@ export default function Cyclone_input() {
       date_formed: data.get('date-formed'),
       date_end: data.get('date-end'),
     });
+
+    db.collection(type).doc(data.get('name')).set({
+      name: data.get('name'),
+      location: data.get('location'),
+      ocean: data.get('ocean'),
+      peak_speed: data.get('peak-speed'),
+      loss: data.get('loss'),
+      gdp_drop: data.get('gdp-drop'),
+      damage: data.get('damage'),
+      death: data.get('death'),
+      date_formed: data.get('date-formed'),
+      date_end: data.get('date-end'),
+    })
+      .then(() => {
+        console.log("Cyclone added successfully");
+      })
+      .catch((error) => {
+        console.error("Error adding cyclone: ", error);
+      });
     // auth
     //   .signInWithEmailAndPassword(data.get('email'), data.get('password'))
     //   .then((user) => {
@@ -106,9 +125,11 @@ export default function Cyclone_input() {
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <AddCircleOutlinedIcon />
-            </Avatar>
+            <Avatar
+              alt="Remy Sharp"
+              src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FCyclone&psig=AOvVaw3cKqsouIwcCv9og5sL1oOR&ust=1668838521185000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCPCq74uKt_sCFQAAAAAdAAAAABAN"
+              sx={{ width: 56, height: 56 }}
+            />
             <Typography component="h1" variant="h5">
               Cyclone Data
             </Typography>
