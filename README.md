@@ -1,4 +1,4 @@
-# EVENT SEGMENTATION WEBSITE
+# CYCLONE ANALYSIS WEBSITE
 
 ## The code has been deployed on : https://cyclone-analysis.netlify.app/
 
